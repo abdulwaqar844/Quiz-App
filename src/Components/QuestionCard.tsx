@@ -2,7 +2,7 @@ import React from "react";
 import { Questionproptype } from "./../Types/QuizType"
 const QuestionCard: React.FC<Questionproptype> = ({
     question,
-    option
+    option,callback
 }
 ) => {
     return (
@@ -10,7 +10,7 @@ const QuestionCard: React.FC<Questionproptype> = ({
             <div className="question">
                 {question}
             </div>
-            <form>
+            <form onSubmit={callback}>
                 {
                     option.map((opt: string, ind: number) => {
                         return (
