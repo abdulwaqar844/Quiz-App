@@ -4,23 +4,36 @@ import { getQuizDetails } from './Services/quiz_service'
 import { Quiz } from "./Types/QuizType"
 import QuestionCard from "./Components/QuestionCard"
 function App() {
-  let [quiz, setquiz] = useState<Quiz[]>([])
-  let [currentstep, setCurrentStep] = useState(0)
+  let [quiz, setquiz] = useState<Quiz[]>([]);
+  let [score, setScore] = useState(0);
+  let [currentstep, setCurrentStep] = useState(0);
+
   useEffect(() => {
     async function fetchData() {
       const question: Quiz[] = await getQuizDetails(5, "hard");
-      console.log(question);
       setquiz(question);
     }
     fetchData();
 
   }, [])
-  const handleSubmit = (e:React.FormEvent<EventTarget>,userAns:string) => {
+  const handleSubmit = (e: React.FormEvent<EventTarget>, userAns: string) => {
     e.preventDefault();
-    console.log(userAns)
-    if(currentstep !==quiz.length-1)
+
+    const currentQuestion: Quiz = quiz[currentstep];
+
+    if (userAns === currentQuestion.correct_answer) {
+      setScore(++score)
+    }
+    if (currentstep !== quiz.length - 1) {
       setCurrentStep(++currentstep)
-    else alert("Quiz Completed")
+
+    }
+    else {
+      alert(" Your Score is " + score + " Out of " + quiz.length);
+      setCurrentStep(0);
+      setScore(0)
+    }
+
   }
   if (!quiz.length)
     return <h3>Loading....</h3>
@@ -28,6 +41,7 @@ function App() {
   return (
     <div className="App">
       <h1>Welcome To Quiz </h1>
+  <h1>Your Score is   {score}  Out of  {quiz.length}</h1>
       <QuestionCard
         option={quiz[currentstep].option}
         question={quiz[currentstep].question}

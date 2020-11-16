@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import './../App.css';
 import { Questionproptype } from "./../Types/QuizType"
 const QuestionCard: React.FC<Questionproptype> = ({
     question,
@@ -13,12 +14,14 @@ const QuestionCard: React.FC<Questionproptype> = ({
             <div className="question">
                 {question}
             </div>
-            <form onSubmit={(e:React.FormEvent<EventTarget>)=>callback(e,selectAns)}>
+            <form onSubmit={(e:React.FormEvent<EventTarget>)=>callback(e,selectAns)} className="question-form" >
+               
                 {
+
                     option.map((opt: string, ind: number) => {
                         return (
                             <div key={ind}>
-                                <label>
+                                <label className="radio">
                                     <input
                                         type="radio"
                                         name="opt"
@@ -35,7 +38,7 @@ const QuestionCard: React.FC<Questionproptype> = ({
                     }
 
                     )}
-                <input type="submit" />
+                <input className="submit" type="submit" />
             </form>
         </div>
 
