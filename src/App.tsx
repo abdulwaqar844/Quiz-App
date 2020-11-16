@@ -15,8 +15,9 @@ function App() {
     fetchData();
 
   }, [])
-  const handleSubmit = (e:React.FormEvent<EventTarget>) => {
+  const handleSubmit = (e:React.FormEvent<EventTarget>,userAns:string) => {
     e.preventDefault();
+    console.log(userAns)
     if(currentstep !==quiz.length-1)
       setCurrentStep(++currentstep)
     else alert("Quiz Completed")
