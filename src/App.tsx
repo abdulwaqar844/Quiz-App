@@ -10,7 +10,7 @@ function App() {
 
   useEffect(() => {
     async function fetchData() {
-      const question: Quiz[] = await getQuizDetails(5, "hard");
+      const question: Quiz[] = await getQuizDetails(10, "hard");
       setquiz(question);
     }
     fetchData();
